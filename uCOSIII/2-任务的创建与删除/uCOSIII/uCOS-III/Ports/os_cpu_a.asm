@@ -173,10 +173,8 @@ PendSV_Handler
 	TST LR, #0x10
 	IT EQ
 	VSTMDBEQ R0!, {S16-S31}
-	
 	MOV R3, LR
 	STMDB R0!,{R3-R11} 
-	
 	LDR R1, =OSTCBCurPtr 										; OSTCBCurPtr->OSTCBStkPtr = SP;
 	LDR R1, [R1]
 	STR R0, [R1] 												; R0 is SP of process being switched out
