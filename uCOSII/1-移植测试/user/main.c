@@ -34,7 +34,7 @@ void float_task(void *p_arg);		//任务函数
 int main(void)
 {
 	delay_init(168);
-	USART1_Init();
+	USART1_init();
 	LED_Init();
 	
 	OSInit();   
@@ -84,11 +84,15 @@ void led1_task(void *pdata)
 //浮点测试任务
 void float_task(void *pdata)
 {
+	OS_CPU_SR cpu_sr=0;
 	static float float_num=0.01;
+	
 	while(1)
 	{
 		float_num+=0.01f;
-		kprintf("float_num的值为: %.4f\r\n",float_num);
+		OS_ENTER_CRITICAL();			//进入临界区(无法被中断打断)    
+		printf("float_num的值为: %.4f\r\n",float_num);
+		OS_EXIT_CRITICAL();			//进入临界区(无法被中断打断)    
 		delay_ms(500);			//延时500ms
 	}
 }

@@ -322,7 +322,7 @@ INT8U  OSTaskCreate (void   (*task)(void *p_arg),
 *              OS_ERR_PRIO_INVALID     if the priority you specify is higher that the maximum allowed
 *                                      (i.e. > OS_LOWEST_PRIO)
 *              OS_ERR_TASK_CREATE_ISR  if you tried to create a task from an ISR.
-*********************************************************************************************************
+********************************************** ***********************************************************
 */
 /*$PAGE*/
 #if OS_TASK_CREATE_EXT_EN > 0u
