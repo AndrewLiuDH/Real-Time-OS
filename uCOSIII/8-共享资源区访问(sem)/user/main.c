@@ -22,6 +22,8 @@ OS_TCB TASKCTaskTCB;							//任务控制块
 CPU_STK TASKC_TASK_STK[TASKC_STK_SIZE];//任务堆栈
 void TASKC_task(void *p_arg);		//任务函数
 
+OS_SEM MY_SEM; //定义一个信号量
+
 
 int main(void)
 {
@@ -75,7 +77,13 @@ void start_task(void *p_arg)
 	OSSchedRoundRobinCfg(DEF_ENABLED,1,&err);  
 #endif		
 	
+	//////////////////////////////////////////////使用信号量之前要先创建
 	OS_CRITICAL_ENTER();	//进入临界区
+	OSSemCreate ((OS_SEM* )&MY_SEM, //指向信号量
+							(CPU_CHAR* )"MY_SEM", //信号量的名字
+							(OS_SEM_CTR )1, //信号量值为 1
+							(OS_ERR* )&err);
+	
 	//创建LED0任务
 	OSTaskCreate((OS_TCB 	* )&TASKBTaskTCB,		
 							(CPU_CHAR	* )"TASKB task", 		
@@ -111,6 +119,7 @@ void start_task(void *p_arg)
 }
 
 u8 share_resource[30]; //共享资源区
+
 //led0任务函数
 void TASKB_task(void *p_arg)
 {
@@ -118,10 +127,12 @@ void TASKB_task(void *p_arg)
 	u8 task1_str[]="First task Running!";
 	while(1)
 	{
+		OSSemPend(&MY_SEM,0,OS_OPT_PEND_BLOCKING,0,&err); //请求信号量
 		printf("\r\n 任务 1:\r\n");
 		memcpy(share_resource,task1_str,sizeof(task1_str)); //向共享资源区拷贝数据 (1)
-//		delay_ms(200);//会造成任务切换
+		delay_ms(300);//会造成任务切换
 		printf("%s\r\n",share_resource); //串口输出共享资源区数据
+		OSSemPost (&MY_SEM,OS_OPT_POST_1,&err); //发送信号量
 		LED0 = ~LED0;
 		OSTimeDlyHMSM(0,0,1,0,OS_OPT_TIME_PERIODIC,&err); //延时 1s
 	}
@@ -135,10 +146,12 @@ void TASKC_task(void *p_arg)
 	u8 task2_str[]="Second task Running!";
 	while(1)
 	{
+		OSSemPend(&MY_SEM,0,OS_OPT_PEND_BLOCKING,0,&err); //请求信号量
 		printf("\r\n 任务 2:\r\n");
 		memcpy(share_resource,task2_str,sizeof(task2_str));//向共享资源区拷贝数据 (2)
-		delay_ms(200);//会造成任务切换
+		delay_ms(300);//会造成任务切换
 		printf("%s\r\n",share_resource); //串口输出共享资源区数据
+		OSSemPost (&MY_SEM,OS_OPT_POST_1,&err); //发送信号量
 		LED1 = ~LED1;
 		OSTimeDlyHMSM(0,0,1,0,OS_OPT_TIME_PERIODIC,&err); //延时 1s
 	}
