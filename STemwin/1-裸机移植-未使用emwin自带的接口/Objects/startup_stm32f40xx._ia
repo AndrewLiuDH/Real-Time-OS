@@ -1,0 +1,6 @@
+--cpu Cortex-M4.fp -g --apcs=interwork 
+-ID:\Keil_v5\ARM\RV31\INC
+-ID:\Keil_v5\ARM\CMSIS\Include
+-ID:\Keil_v5\ARM\Inc\ST\STM32F4xx
+--pd "__UVISION_VERSION SETA 523"
+--list .\listings\startup_stm32f40xx.lst --xref -o .\objects\startup_stm32f40xx.o --depend .\objects\startup_stm32f40xx.d "CORE\startup_stm32f40xx.s"
