@@ -367,14 +367,11 @@
             <v6LangP>0</v6LangP>
             <vShortEn>0</vShortEn>
             <vShortWch>0</vShortWch>
-            <v6Lto>0</v6Lto>
-            <v6WtE>0</v6WtE>
-            <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F4xx</Define>
               <Undefine></Undefine>
-              <IncludePath>.\user;.\FWlib\inc;.\CORE;.\user\ff12a;.\FreeRTOS\include;.\FreeRTOS\portable\RVDS\ARM_CM4F</IncludePath>
+              <IncludePath>.\user;.\FWlib\inc;.\CORE;.\user\ff12a;.\Modbus\BARE\port;.\Modbus\include;.\Modbus\rtu</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -387,7 +384,6 @@
             <NoWarn>0</NoWarn>
             <uSurpInc>0</uSurpInc>
             <useXO>0</useXO>
-            <uClangAs>0</uClangAs>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define></Define>
@@ -454,9 +450,9 @@
               <FilePath>.\FWlib\src\stm32f4xx_usart.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_iwdg.c</FileName>
+              <FileName>stm32f4xx_tim.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\FWlib\src\stm32f4xx_iwdg.c</FilePath>
+              <FilePath>.\FWlib\src\stm32f4xx_tim.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -489,59 +485,94 @@
               <FilePath>.\user\stm32f4xx_it.c</FilePath>
             </File>
             <File>
-              <FileName>iwdg.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\user\iwdg.c</FilePath>
+              <FileName>sys.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\user\sys.h</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>FreeRTOS-core</GroupName>
+          <GroupName>Modbus-port</GroupName>
           <Files>
             <File>
-              <FileName>croutine.c</FileName>
+              <FileName>portevent.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\FreeRTOS\croutine.c</FilePath>
+              <FilePath>.\Modbus\BARE\port\portevent.c</FilePath>
             </File>
             <File>
-              <FileName>event_groups.c</FileName>
+              <FileName>portserial.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\FreeRTOS\event_groups.c</FilePath>
+              <FilePath>.\Modbus\BARE\port\portserial.c</FilePath>
             </File>
             <File>
-              <FileName>list.c</FileName>
+              <FileName>porttimer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\FreeRTOS\list.c</FilePath>
+              <FilePath>.\Modbus\BARE\port\porttimer.c</FilePath>
             </File>
-            <File>
-              <FileName>queue.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\FreeRTOS\queue.c</FilePath>
-            </File>
-            <File>
-              <FileName>tasks.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\FreeRTOS\tasks.c</FilePath>
-            </File>
-            <File>
-              <FileName>timers.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\FreeRTOS\timers.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>FreeRTOS-port</GroupName>
-          <Files>
             <File>
               <FileName>port.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\FreeRTOS\portable\RVDS\ARM_CM4F\port.c</FilePath>
+              <FilePath>.\Modbus\BARE\port\port.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Modbus-rtu</GroupName>
+          <Files>
+            <File>
+              <FileName>mbcrc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Modbus\rtu\mbcrc.c</FilePath>
             </File>
             <File>
-              <FileName>heap_4.c</FileName>
+              <FileName>mbrtu.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\FreeRTOS\portable\MemMang\heap_4.c</FilePath>
+              <FilePath>.\Modbus\rtu\mbrtu.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Modbus-func</GroupName>
+          <Files>
+            <File>
+              <FileName>mbfunccoils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Modbus\functions\mbfunccoils.c</FilePath>
+            </File>
+            <File>
+              <FileName>mbfuncdiag.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Modbus\functions\mbfuncdiag.c</FilePath>
+            </File>
+            <File>
+              <FileName>mbfuncdisc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Modbus\functions\mbfuncdisc.c</FilePath>
+            </File>
+            <File>
+              <FileName>mbfuncholding.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Modbus\functions\mbfuncholding.c</FilePath>
+            </File>
+            <File>
+              <FileName>mbfuncinput.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Modbus\functions\mbfuncinput.c</FilePath>
+            </File>
+            <File>
+              <FileName>mbfuncother.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Modbus\functions\mbfuncother.c</FilePath>
+            </File>
+            <File>
+              <FileName>mbutils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Modbus\functions\mbutils.c</FilePath>
+            </File>
+            <File>
+              <FileName>mb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Modbus\mb.c</FilePath>
             </File>
           </Files>
         </Group>
