@@ -33,11 +33,9 @@
 #include "fs.h"
 #include "fsdata.h"
 #include "string.h"
-#include "task.h"
 #include "httpserver-socket.h"
 #include "FreeRTOS.h"
-
-#include "sockets.h"
+#include "task.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -284,7 +282,7 @@ void DynWebPage(int conn)
   strcat((char *) PAGE_BODY, "<br>---------------------------------------------<br>"); 
     
   /* The list of tasks and their status */
-  vTaskList((char *)(PAGE_BODY + strlen(PAGE_BODY)));
+  vTaskList((signed char *)(PAGE_BODY + strlen(PAGE_BODY)));
   strcat((char *) PAGE_BODY, "<br><br>---------------------------------------------"); 
   strcat((char *) PAGE_BODY, "<br>B : Blocked, R : Ready, D : Deleted, S : Suspended<br>");
   
