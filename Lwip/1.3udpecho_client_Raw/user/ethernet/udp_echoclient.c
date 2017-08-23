@@ -173,7 +173,7 @@ void udp_senddata(struct udp_pcb *upcb)
 	ptr=pbuf_alloc(PBUF_TRANSPORT,strlen((char*)UdpsendBuf),PBUF_POOL); //申请内存
 	if(ptr!= NULL)
 	{
-		pbuf_take(ptr,(char*)UdpsendBuf,strlen((char*)UdpsendBuf)); //将tcp_demo_sendbuf中的数据打包进pbuf结构中
+		pbuf_take(ptr,(char*)UdpsendBuf,strlen((char*)UdpsendBuf));
 		udp_send(upcb,ptr);	//udp发送数据 
 		printf("Send Message: %s \r\n",UdpsendBuf);
 		pbuf_free(ptr);//释放内存

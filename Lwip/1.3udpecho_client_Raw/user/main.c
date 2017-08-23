@@ -49,7 +49,7 @@ __IO uint32_t LocalTime = 0; /* this variable is used to create a time reference
 uint32_t timingdelay;
 uint8_t flag_udp_client = 0;
 extern uint8_t UdpsendBuf[200];
-u8_t	recvBuf[100];
+u8_t	UdprecvBuf[100];
 
 //uint8_t sendBuf[200] = "Hello World!";
 
